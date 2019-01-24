@@ -5,8 +5,7 @@
     <ProjectGuid>ccc683fa-3a5e-4411-854b-2880c9d7e603</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>ViewingClient.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <SearchPath>..\..\Capture\Capture</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>ViewingClient</Name>
@@ -21,6 +20,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\Capture\Capture\connection_service.py">
+      <Link>connection_service.py</Link>
+    </Compile>
     <Compile Include="ViewingClient.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
