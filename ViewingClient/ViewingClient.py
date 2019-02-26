@@ -3,7 +3,7 @@ from connection_service import ConnectionService
 import multiprocessing
 import cv2
 import time
-
+import base64
 import numpy as np
 
 HOST = "127.0.0.1"
@@ -12,19 +12,24 @@ VIEW_CLIENT =  f"client_type:1".encode()
 
 
 def display_frame(frame_data):
-    if frame_data is not None:
-        # Display the resulting frame
-        nparr = np.fromstring(frame_data, np.uint8)
-        frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-        try:
-            cv2.imshow('ViewingClient', frame)
+    try:
+        if frame_data is not None:
+            # Display the resulting frame
+            jpg_original = base64.b64decode(frame_data)
+
+            jpg_as_np = np.frombuffer(jpg_original, dtype=np.uint8)
+    
+            image_buffer = cv2.imdecode(jpg_as_np, flags=1)
+
+            cv2.imshow('ViewingClient', image_buffer)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 cv2.destroyAllWindows()
                 raise SystemExit("Exiting...")
-        except Exception as e:
-            print ("Type error displaying image...")
-            print (e)
-            pass
+
+    except Exception as e:
+        print ("Type error displaying image...")
+        print (e)
+        pass
 
 def display_frame_func(connection_service):
     while True:
